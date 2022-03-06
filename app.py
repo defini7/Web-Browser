@@ -40,8 +40,8 @@ class MainWindow(QMainWindow):
       
     self.url_bar.setText(url.toString())
 
-  def add_new_tab(self, url: QUrl = QUrl('https://google.com/'), title='New tab'):
-    if url is None:
+  def add_new_tab(self, _: bool = True, url: QUrl = QUrl('https://google.com/'), title='New tab'):
+    if url is None or type(url) == bool:
       url = QUrl('')
 
     browser = QWebEngineView()
@@ -94,6 +94,8 @@ class MainWindow(QMainWindow):
     self.url_bar = QLineEdit()
     self.url_bar.returnPressed.connect(self.navigate_url)
     self.navbar.addWidget(self.url_bar)
+
+    self.add_to_navbar('+', self.add_new_tab)
 
     self.show()
     
